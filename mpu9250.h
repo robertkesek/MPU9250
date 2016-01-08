@@ -1,3 +1,7 @@
+/*
+ * Made by Robert Kesek
+ */
+
 #ifndef MPU9250_H
 #define MPU9250_H
 
@@ -48,7 +52,7 @@ typedef struct
 
 typedef int16_t temp_value_t;
 
-/**@brief MPU9150 driver digital low pass fileter and external Frame Synchronization (FSYNC) pin sampling configuration structure */
+/**@brief MPU9250 driver digital low pass filter and external Frame Synchronization (FSYNC) pin sampling configuration structure */
 typedef struct
 {
     uint8_t dlpf_cfg     :3; // 3-bit unsigned value. Configures the Digital Low Pass Filter setting.
@@ -56,7 +60,7 @@ typedef struct
     uint8_t              :2;
 }sync_dlpf_config_t;
 
-/**@brief MPU9150 driver gyro configuration structure. */
+/**@brief MPU9250 driver gyro configuration structure. */
 typedef struct
 {
     uint8_t                 :3;
@@ -64,7 +68,7 @@ typedef struct
     uint8_t                 :3;
 }gyro_config_t;
 
-/**@brief MPU9150 driver accelerometer configuration structure. */
+/**@brief MPU9250 driver accelerometer configuration structure. */
 typedef struct
 {
     uint8_t accel_hpf       :3; // 3-bit unsigned value. Selects the Digital High Pass Filter configuration.
@@ -76,7 +80,7 @@ typedef struct
 
 typedef struct
 {
-    uint8_t             smplrt_div;         // Divider from the gyroscope output rate used to generate the Sample Rate for the MPU-9150. Sample Rate = Gyroscope Output Rate / (1 + SMPLRT_DIV)
+    uint8_t             smplrt_div;         // Divider from the gyroscope output rate used to generate the Sample Rate for the MPU-9250. Sample Rate = Gyroscope Output Rate / (1 + SMPLRT_DIV)
     sync_dlpf_config_t  sync_dlpf_gonfig;   // Digital low pass fileter and external Frame Synchronization (FSYNC) configuration structure
     gyro_config_t       gyro_config;        // Gyro configuration structure
     accel_config_t      accel_config;       // Accelerometer configuration structure
@@ -101,7 +105,7 @@ typedef struct
 typedef struct
 {
     uint8_t clkout_en       :1;  // When this bit is equal to 1, a reference clock output is provided at the CLKOUT pin. When this bit is equal to 0, the clock output is disabled. For further information regarding CLKOUT, please refer to the MPU-9250 Product Specification document.
-    uint8_t i2c_bypass_en   :1;  // When this bit is equal to 1 and I2C_MST_EN (Register 106 bit[5]) is equal to 0, the host application processor will be able to directly access the auxiliary I2C bus of the MPU-9150. When this bit is equal to 0, the host application processor will not be able to directly access the auxiliary I2C bus of the MPU-9150 regardless of the state of I2C_MST_EN (Register 106 bit[5]).
+    uint8_t i2c_bypass_en   :1;  // When this bit is equal to 1 and I2C_MST_EN (Register 106 bit[5]) is equal to 0, the host application processor will be able to directly access the auxiliary I2C bus of the MPU-9250. When this bit is equal to 0, the host application processor will not be able to directly access the auxiliary I2C bus of the MPU-9250 regardless of the state of I2C_MST_EN (Register 106 bit[5]).
     uint8_t fsync_int_en    :1;  // When equal to 0, this bit disables the FSYNC pin from causing an interrupt to the host processor. When equal to 1, this bit enables the FSYNC pin to be used as an interrupt to the host processor.
     uint8_t fsync_int_level :1;  // When this bit is equal to 0, the logic level for the FSYNC pin (when used as an interrupt to the host processor) is active high. When this bit is equal to 1, the logic level for the FSYNC pin (when used as an interrupt to the host processor) is active low.
     uint8_t int_rd_clear    :1;  // When this bit is equal to 0, interrupt status bits are cleared only by reading INT_STATUS (Register 58). When this bit is equal to 1, interrupt status bits are cleared on any read operation.
@@ -123,7 +127,7 @@ typedef struct
     .int_level          = 0,    \
 }
 
-/**@brief MPU9150 driver interrupt source configuration structure. */
+/**@brief MPU9250 driver interrupt source configuration structure. */
 typedef struct
 {
     uint8_t data_rdy_en     :1; // When set to 1, this bit enables the Data Ready interrupt, which occurs each time a write operation to all of the sensor registers has been completed.
@@ -135,7 +139,7 @@ typedef struct
     uint8_t ff_en           :1; // When set to 1, this bit enables Free Fall detection to generate an interrupt.
 }mpu9250_int_enable_t;
 
-/**@brief MPU9150 interrupt sources default configuration. */
+/**@brief MPU9250 interrupt sources default configuration. */
 #define MPU9250_DEFAULT_INT_ENABLE_CONFIG() \
 {                           \
     .data_rdy_en    = 0,    \
@@ -172,7 +176,7 @@ uint32_t mpu9250_init(nrf_drv_twi_t const * const p_instance);
 /**@brief Function for basic configuring of the MPU
  * 
  * Register 25 – Sample Rate Divider SMPRT_DIV. This register specifies 
- * the divider from the gyroscope output rate used to generate the Sample Rate for the MPU-9150.
+ * the divider from the gyroscope output rate used to generate the Sample Rate for the MPU-9250.
  * 
  * Register 26 – Configuration CONFIG. This register configures 
  * the external Frame Synchronization (FSYNC) pin sampling and the Digital Low Pass Filter (DLPF) 
